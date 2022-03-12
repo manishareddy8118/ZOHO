@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+    <title>ZOHO| Home</title>
+{% endblock %}
+{% block homecontent %}
+    <div class="topnav">
+        <a {% if '/' == request.path %}class="active"{% endif %} >
+            <img src="{% static 'images/zoho.jpg' %}" width="50" />
+            Contact Manager
+        </a>
+        <a {% if '/users/' == request.path %}class="active"{% endif %} href="{% url 'Contacts:home' %}">CONTACTS</a>
+        <a href="#" class="float-right"><i class="fa fa-user"></i>&nbsp;{{ request.user.get_full_name }}</a></li>&nbsp;
+        <a href="{% url 'UserManagement:logout' %}" class="float-right">Logout</a></li>
+    </div>
+    <div class="container">
+        <img class="loader" src="{% static 'images/loading.gif' %}" width="100"/>
+        {% block content %}
+            <h1 style="margin-top:10%">Hi {{ request.user.get_full_name }}, Welcome to ZOHO Contact Manager</h1>
+        {% endblock %}
+    </div>
+{% endblock %}

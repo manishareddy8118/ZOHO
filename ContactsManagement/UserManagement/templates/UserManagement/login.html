@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+    <title>ZOHO | Login</title>
+{% endblock %}
+{% block homecontent %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <img class="p-3" src="{% static 'images/zoho.jpg' %}" width="500" style="margin-top:40%" />
+            </div>
+            <div class="col-6 p-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="p-1 text-center" >
+                            <img src="{% static 'images/zoho.jpg' %}" width="100" />
+                        </div>
+                        <form class="login-form" method="post" action=".">
+                            {% if failure %}
+                                <p class="text-center login_error" style="color:red;">
+                                    User not found with given credentials, Please check Email and Password
+                                </p>
+                            {% endif %}
+                            {% csrf_token %}
+                            {{ user_login_form.as_p }}
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    <i class='fa fa-lock float-left'></i>Sign In
+                                </button>
+                            </div>
+                        </form>
+                        <div class="text-center">
+                            <a href="#!">Forgot Password</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <div class="text-center">
+                            Don't have an account? <a href="{% url 'UserManagement:register' %}">Sign Up here</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).on('click', '.password-handle', function(e){
+            e.preventDefault()
+            if($(this).attr('currentAction') == 'hidden'){
+                $('.password-field').attr('type', 'text')
+                $(this).attr('currentAction', 'show')
+            }
+            else{
+                $('.password-field').attr('type', 'password')
+                $(this).attr('currentAction', 'hidden')
+            }
+            $(this).find('.password-icon').toggleClass('fa-eye-slash')
+            $(this).find('.password-icon').toggleClass('fa-eye')
+        })
+    </script>
+{% endblock %}
